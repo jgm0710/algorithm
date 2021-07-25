@@ -1,5 +1,9 @@
 package n9000.n9000.n9093;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  * 단어 뒤집기 9093
  * <p>
@@ -22,6 +26,38 @@ package n9000.n9000.n9093;
  */
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
+        int sentencesCount = scanner.nextInt();
+        scanner.nextLine();
+
+        List<String> results = new ArrayList<>();
+        List<String> reversWords = new ArrayList<>();
+
+        for (int i = 0; i < sentencesCount; i++) {
+            String sentences = scanner.nextLine();
+
+            while (true) {
+                int blankIndex = sentences.indexOf(' ');
+                if (blankIndex == -1) {
+                    reversWords.add(new StringBuilder(sentences).reverse().toString());
+                    break;
+                }
+
+                String word = sentences.substring(0, blankIndex);
+                reversWords.add(new StringBuilder(word).reverse().toString());
+
+                sentences = sentences.substring(blankIndex + 1);
+            }
+
+            StringBuilder result = new StringBuilder();
+            for (String reversWord : reversWords) {
+                result.append(reversWord).append(" ");
+            }
+            results.add(result.substring(0, result.length() - 1));
+            reversWords.clear();
+        }
+
+        results.forEach(System.out::println);
     }
 }
