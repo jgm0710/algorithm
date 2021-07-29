@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 /**
  * 수 정렬하기 3 - 10989
  *
+ * - inputStream 을 한 번에 받아 입력 최적화
+ * - String 을 한 번에 응답하여 출력 최적화
+ *
  * @author Gumin Jeong
  * @see <a href="https://www.acmicpc.net/problem/10989">문제 출처</a>
  * @since 2021-07-28
@@ -19,23 +22,24 @@ public class Main {
 
         int inputCount = Integer.parseInt(bufferedReader.readLine());
 
-        String[] results = new String[10001];
+        int[] numbersCounts = new int[10001];
+
 
         for (int i = 0; i < inputCount; i++) {
             int n = Integer.parseInt(bufferedReader.readLine());
-            if (results[n] == null) {
-                results[n] = n + "\n";
-            } else {
-                results[n] += n + "\n";
-            }
+            numbersCounts[n]++;
         }
 
         bufferedReader.close();
 
-        for (int i = 0; i < results.length; i++) {
-            if (results[i] != null) {
-                System.out.println(results[i].substring(0, results[i].length() - 1));
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (int i = 0; i < numbersCounts.length; i++) {
+            for (int j = 0; j < numbersCounts[i]; j++) {
+                stringBuffer.append(i).append("\n");
             }
         }
+
+        System.out.print(stringBuffer);
     }
 }
